@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import re
 from pathlib import Path
-from xml.etree.ElementPath import find
 import environ
 
 
@@ -53,9 +52,8 @@ DJANGO_VITE_DEV_SERVER_PORT = 3000
 DJANGO_VITE_MANIFEST_PATH = BASE_DIR / 'frontend' / \
     'static' / 'dist' / '.vite' / 'manifest.json'
 
-# ALLOWED_HOSTS = ['104.248.77.150', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:8000", ]
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(' ')
+CORS_ALLOWED_ORIGINS = os.getenv('DJANGO_CORS_ALLOWED_ORIGINS').split(' ')
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -79,6 +77,7 @@ LOCAL_APPS = [
 THIRD_APPS = [
     'django_vite',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -86,7 +85,6 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,28 +171,45 @@ STATICFILES_DIRS = [
     DJANGO_VITE_ASSETS_PATH,
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": 'whitenoise.storage.CompressedStaticFilesStorage',
-    },
-}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# pylint: disable=unused-argument
-# Vite generates files with 8 hash digits
-# http://whitenoise.evans.io/en/stable/django.html#WHITENOISE_IMMUTABLE_FILE_TEST
-
-
-def immutable_file_test(path, url):
-    ''' Match filename with 12 hex digits before the extension
-    # e.g. app.db8f2edc0c8a.js '''
-    return re.match(r"^.+\.[0-9a-f]{8,12}\..+$", url)
-
-
-WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
-
 DEBUG_PROPAGATE_EXCEPTIONS = False
+
+
+if ENVIRONMENT == 'production':
+    # SECURITY
+
+    # cookies
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_HTTPONLY = True
+
+    # subdomains
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+    # rest framework
+    REST_FRAMEWORK = {
+        'DEFAULT_THROTTLE_CLASSES': [
+            'rest_framework.throttling.UserRateThrottle'
+        ],
+        'DEFAULT_THROTTLE_RATES': {
+            'user': '500/day'  # Allow only 500 requests per day for authenticated users
+        },
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.TokenAuthentication', #------ UNCOMMENT IN HTTPS
+        ],
+    }
+
+    # ssl  ------ UNCOMMENT IN HTTPS
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 86400 # It will be blocked for one day.
+    SECURE_HSTS_PRELOAD = True

@@ -14,6 +14,8 @@ env:
   PG_PORT: 5432
   DJANGO_ENV: development
   SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  DJANGO_ALLOWED_HOSTS: localhost
+  DJANGO_CORS_ALLOWED_ORIGINS: http://localhost http://127.0.0.1
 
 jobs:
   ci:

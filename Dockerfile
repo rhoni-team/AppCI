@@ -15,4 +15,4 @@ RUN pip install -r /requirements.txt
 RUN pip install gunicorn
 
 COPY ./.env.prod /AppCI
-COPY . /AppCI
+COPY ./AppCI /AppCI
