@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import hamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
+import DarkLightButton from '@/components/DarkLightButton.vue';
 </script>
 
 <template>
@@ -22,7 +23,10 @@ import hamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
       <div class="navbar-center">
         <a class="btn btn-ghost text-xl">AppCI</a>
       </div>
-      <div class="navbar-end" />
+        <button class="btn btn-ghost btn-circle">
+          <dark-light-button />
+        </button>
+      </div>
     </div>
   </nav>
 </template>
