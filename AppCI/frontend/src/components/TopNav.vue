@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import hamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
-import lensIcon from '@/assets/icons/lensIcon.vue';
-import notifyBellIcon from '@/assets/icons/notifyBellIcon.vue';
 import DarkLightButton from '@/components/DarkLightButton.vue';
-
 </script>
 
 <template>
@@ -26,16 +23,6 @@ import DarkLightButton from '@/components/DarkLightButton.vue';
       <div class="navbar-center">
         <a class="btn btn-ghost text-xl">AppCI</a>
       </div>
-      <div class="navbar-end">
-        <button class="btn btn-ghost btn-circle">
-          <lens-icon />
-        </button>
-        <button class="btn btn-ghost btn-circle">
-          <div class="indicator">
-            <notify-bell-icon />
-            <span class="badge badge-xs badge-info indicator-item" />
-          </div>
-        </button>
         <button class="btn btn-ghost btn-circle">
           <dark-light-button />
         </button>
