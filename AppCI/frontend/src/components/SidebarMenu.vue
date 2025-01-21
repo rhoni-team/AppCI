@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import DarkLightButton from '@/components/DarkLightButton.vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 </script>
 
 <template>
@@ -20,6 +18,5 @@ const router = useRouter()
     <li>
       <a @click="router.push({name: 'IsolationCalculator'})">Calculator</a>
     </li>
-    <dark-light-button />
   </ul>
 </template>
