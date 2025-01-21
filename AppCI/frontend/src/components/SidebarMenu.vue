@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 </script>
 
 <template>
@@ -9,7 +12,11 @@
   />
   <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
     <!-- Sidebar content here -->
-    <li><a>Sidebar Item 1</a></li>
-    <li><a>Sidebar Item 2</a></li>
+    <li>
+      <a @click="router.push({name: 'Home'})">Home</a>
+    </li>
+    <li>
+      <a @click="router.push({name: 'IsolationCalculator'})">Calculator</a>
+    </li>
   </ul>
 </template>
