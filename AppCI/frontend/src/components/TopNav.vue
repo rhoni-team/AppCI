@@ -2,6 +2,8 @@
 import hamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
 import lensIcon from '@/assets/icons/lensIcon.vue';
 import notifyBellIcon from '@/assets/icons/notifyBellIcon.vue';
+import DarkLightButton from '@/components/DarkLightButton.vue';
+
 </script>
 
 <template>
@@ -33,6 +35,9 @@ import notifyBellIcon from '@/assets/icons/notifyBellIcon.vue';
             <notify-bell-icon />
             <span class="badge badge-xs badge-info indicator-item" />
           </div>
+        </button>
+        <button class="btn btn-ghost btn-circle">
+          <dark-light-button />
         </button>
       </div>
     </div>

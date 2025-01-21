@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DarkLightButton from '@/components/DarkLightButton.vue';
 </script>
 
 <template>
@@ -12,6 +11,5 @@ import DarkLightButton from '@/components/DarkLightButton.vue';
     <!-- Sidebar content here -->
     <li><a>Sidebar Item 1</a></li>
     <li><a>Sidebar Item 2</a></li>
-    <dark-light-button />
   </ul>
 </template>
