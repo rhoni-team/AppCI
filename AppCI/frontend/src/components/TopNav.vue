@@ -26,7 +26,6 @@ import DarkLightButton from '@/components/DarkLightButton.vue';
         <button class="btn btn-ghost btn-circle">
           <DarkLightButton />
         </button>
-      </div>
     </div>
   </nav>
 </template>
