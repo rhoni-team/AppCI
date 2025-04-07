@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import hamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
+import HamButtonIcon from '@/assets/icons/hamButtonIcon.vue';
 import DarkLightButton from '@/components/DarkLightButton.vue';
 </script>
 
@@ -16,7 +16,7 @@ import DarkLightButton from '@/components/DarkLightButton.vue';
             for="my-drawer"
             class="drawer-button"
           >
-            <hamButtonIcon />
+            <HamButtonIcon />
           </label>
         </div>
       </div>
@@ -24,9 +24,8 @@ import DarkLightButton from '@/components/DarkLightButton.vue';
         <a class="btn btn-ghost text-xl">AppCI</a>
       </div>
         <button class="btn btn-ghost btn-circle">
-          <dark-light-button />
+          <DarkLightButton />
         </button>
-      </div>
     </div>
   </nav>
 </template>
